@@ -25,5 +25,7 @@ Route::get('/education', function () {
     return View::make('education');
 });
 
-
+Route::get('/personalInformation', function () {
+    return View::make('personalInformation');
+});
 
