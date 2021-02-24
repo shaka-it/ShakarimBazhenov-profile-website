@@ -32,7 +32,7 @@ Route::get('/personalInformation', function () {
     return View::make('personalInformation');
 });
 
-Route::get('/​post/create​', function () {
+Route::get('/post/create​', function () {
     DB::table('posts')->insert([
         'title' => 'CV',
         'body' => 'CV body'
