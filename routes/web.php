@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +31,17 @@ Route::get('/education', function () {
 Route::get('/personalInformation', function () {
     return View::make('personalInformation');
 });
+
+Route::get('/​post/create​', function () {
+    DB::table('posts')->insert([
+        'title' => 'CV',
+        'body' => 'CV body'
+    ]);
+});
+
+Route::get('/post', function () {
+    $post = Post::find(1);
+    return $post;
+});
+
 
