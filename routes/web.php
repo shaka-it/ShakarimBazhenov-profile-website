@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Post;
 
+use App\Http\Controllers\BlogController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,11 +41,19 @@ Route::get('/personalInformation', function () {
 //     ]);
 // });
 
-Route::resource('post','PostController');
+// Route::resource('post','BlogController');
+
+Route::get('blog/index', [BlogController::class,'index']);
+
+// Route::resource('blog','BlogController');
+
+Route::get('blog/create', function() {
+    return view('blog.create');
+});
+
+Route::post('blog/create', [BlogController::class,'store'])->name('add-blog');
 
 Route::get('/post', function () {
     $post = Post::find(1);
     return $post;
 });
-
-
