@@ -34,18 +34,11 @@ Route::get('/personalInformation', function () {
     return View::make('personalInformation');
 });
 
-// Route::get('/post/create​', function () {
-//     DB::table('posts')->insert([
-//         'title' => 'CV',
-//         'body' => 'CV body'
-//     ]);
-// });
+Route::get('/post/create', 'BlogController@create');
 
-// Route::resource('post','BlogController');
+Route::get('/post/{id}', [BlogController::class,'get_blog']);
 
 Route::get('blog/index', [BlogController::class,'index']);
-
-// Route::resource('blog','BlogController');
 
 Route::get('blog/create', function() {
     return view('blog.create');

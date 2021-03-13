@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 
+use Illuminate\Support\Facades\DB;
+
 class BlogController extends Controller
 {
     /**
@@ -27,7 +29,10 @@ class BlogController extends Controller
      */
     public function create()
     {
-        
+        DB::table('posts')->insert([
+            'title' => 'CV',
+            'body' => 'CV body'
+        ]);
     }
 
     /**
@@ -89,5 +94,18 @@ class BlogController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function get_blog($id)
+    {
+
+        $post = Post::find($id);
+
+        if($post == null) {
+            return response(404);
+        }
+
+        return view('blog.detail')->with(['post' => $post]);
+        // return $post;
     }
 }
