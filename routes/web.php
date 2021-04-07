@@ -18,35 +18,43 @@ use App\Http\Controllers\BlogController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/','/en');
+
+Route::group(['prefix' => '{language}'], function() {
+    Route::get('/', function () {
+        return view('aboutMe');
+    });
+    
+    Route::get('/aboutMe', function () {
+        return View::make('aboutMe');
+    })->name('aboutMe');
+    
+    Route::get('/education', function () {
+        return View::make('education');
+    })->name('education');
+    
+    Route::get('/personalInformation', function () {
+        return View::make('personalInformation');
+    })->name('personalInformation');
+    
+    Route::get('/post/create', 'BlogController@create');
+    
+    Route::get('/post/{id}', [BlogController::class,'get_blog']);
+    
+    Route::get('blog/index', [BlogController::class,'index']);
+    
+    Route::get('blog/create', function() {
+        return view('blog.create');
+    });
+    
+    Route::post('blog/create', [BlogController::class,'store'])->name('add-blog');
+    
+    Route::get('/post', function () {
+        $post = Post::find(1);
+        return $post;
+    });
 });
 
-Route::get('/aboutMe', function () {
-    return View::make('aboutMe');
-});
+// Auth::routes();
 
-Route::get('/education', function () {
-    return View::make('education');
-});
-
-Route::get('/personalInformation', function () {
-    return View::make('personalInformation');
-});
-
-Route::get('/post/create', 'BlogController@create');
-
-Route::get('/post/{id}', [BlogController::class,'get_blog']);
-
-Route::get('blog/index', [BlogController::class,'index']);
-
-Route::get('blog/create', function() {
-    return view('blog.create');
-});
-
-Route::post('blog/create', [BlogController::class,'store'])->name('add-blog');
-
-Route::get('/post', function () {
-    $post = Post::find(1);
-    return $post;
-});
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
